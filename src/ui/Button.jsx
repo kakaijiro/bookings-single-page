@@ -54,14 +54,11 @@ const Button = styled.button`
   box-shadow: var(--shadow-sm);
 
   ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]}
+  ${(props) => variations[props.variation]} /* cursor: pointer; */
 
-
-  /* cursor: pointer; */
-
-  /* &:hover {
-    background-color: var(--color-brand-700); */
-  } // &:hover means "Button:hover" in this context
+  // &:hover {
+  //  background-color: var(--color-brand-700); 
+  //} // &:hover means "Button:hover" in this context
 `;
 
 Button.defaultProps = {
