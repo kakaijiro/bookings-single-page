@@ -50,7 +50,6 @@ function CabinRow({ cabin }) {
     maxCapacity,
     regularPrice,
     discount,
-    description,
     image,
   } = cabin;
 

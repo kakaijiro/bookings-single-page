@@ -11,11 +11,7 @@ export async function getCabins() {
   return data;
 }
 
-export async function cerateCabin(newCabin) {
-  // sample image url
-  // https://jnlafutnfucfmysqnequ.supabase.co/storage/v1/object/public/cabin-images//cabin-003.jpg
-  // https://jnlafutnfucfmysqnequ.supabase.co/storage/v1/object/public/cabin-images//cabin-001.jpg
-
+export async function createCabin(newCabin) {
   // 0) get the image name
   // if there's a "/", supabase will create a folder. So, we  remove it.
   const imageName = `${Math.floor(Math.random() * 100000000)}-${
