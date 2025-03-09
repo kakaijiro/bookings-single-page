@@ -53,8 +53,9 @@ const Button = styled.button`
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
 
-  ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variation]} /* cursor: pointer; */
+  ${(props) => sizes[props.size] || sizes.medium}
+  ${(props) =>
+    variations[props.variation] || variations.primary} /* cursor: pointer; */
 
   // &:hover {
   //  background-color: var(--color-brand-700); 
@@ -62,7 +63,7 @@ const Button = styled.button`
 `;
 
 Button.defaultProps = {
-  variations: "primary",
+  variation: "primary",
   size: "medium",
 };
 
