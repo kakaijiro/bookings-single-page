@@ -5,7 +5,7 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { cerateCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
@@ -40,8 +40,7 @@ const FormRow2 = styled.div`
 `;
 
 function CreateCabinForm() {
-  const { register, handleSubmit, reset, getValues, formState, watch } =
-    useForm();
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
   const { errors } = formState;
   const queryClient = useQueryClient();
   const { mutate, isLoading: isCreating } = useMutation({
@@ -56,14 +55,10 @@ function CreateCabinForm() {
 
   function onSubmit(data) {
     mutate(data);
-    console.log(getValues().regularPrice);
-    console.log(watch("regularPrice"));
   }
 
   function onError(errors) {
     // console.log(errors);
-    console.log(getValues().regularPrice, getValues().discount);
-    console.log(watch("regularPrice"), watch("discount"));
   }
 
   return (
@@ -118,7 +113,7 @@ function CreateCabinForm() {
           {...register("discount", {
             required: "This field is required",
             validate: (value) =>
-              value <= getValues().regularPrice ||
+              +value <= +getValues().regularPrice ||
               "Discount must be less than regular price",
           })}
         />
