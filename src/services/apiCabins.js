@@ -11,19 +11,35 @@ export async function getCabins() {
   return data;
 }
 
-export async function createCabin(newCabin) {
+export async function createEditCabin(newCabin, id) {
+  // console.log(newCabin);
+
+  const hasImagePath =
+    typeof newCabin.image === "string"
+      ? newCabin.image.startsWith(supabaseUrl)
+      : false;
   // 0) get the image name
   // if there's a "/", supabase will create a folder. So, we  remove it.
   const imageName = `${Math.floor(Math.random() * 100000000)}-${
     newCabin.image.name
   }`.replaceAll("/", "");
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  const imagePath = hasImagePath
+    ? newCabin.image
+    : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
   // 1) create a new cabin
-  const { data, error } = await supabase
-    .from("cabins")
-    .insert([{ ...newCabin, image: imagePath }])
-    .select();
+  // const { data, error } = await supabase
+  //   .from("cabins")
+  //   .insert([{ ...newCabin, image: imagePath }])
+  //   .select()
+  //   .single();
+  let query = supabase.from("cabins");
+  // 1-A) create a new cabin
+  if (!id) query = query.insert([{ ...newCabin, image: imagePath }]);
+  // 1-B) edit a cabin
+  if (id) query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
+
+  const { data, error } = await query.select().single();
 
   if (error) {
     console.log(error);
@@ -31,17 +47,19 @@ export async function createCabin(newCabin) {
   }
 
   // 2) upload the image
-  const { error: storageError } = await supabase.storage
-    .from("cabin-images")
-    .upload(imageName, newCabin.image);
+  if (!hasImagePath) {
+    const { error: storageError } = await supabase.storage
+      .from("cabin-images")
+      .upload(imageName, newCabin.image);
 
-  // 3) delete an image if there was an error
-  if (storageError) {
-    await supabase.from("cabins").delete().eq("id", data.id);
-    console.error(storageError);
-    throw new Error(
-      "Cabin image could not be uploaded and the cabin was not created."
-    );
+    // 3) delete an image if there was an error
+    if (storageError) {
+      await supabase.from("cabins").delete().eq("id", data.id);
+      console.error(storageError);
+      throw new Error(
+        "Cabin image could not be uploaded and the cabin was not created."
+      );
+    }
   }
 
   return data;
