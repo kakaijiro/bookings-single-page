@@ -85,25 +85,25 @@ function CabinRow({ cabin }) {
         <span>&mdash;</span>
       )}
       <div>
-        <Modal>
-          <Menus.Menu>
-            <Menus.Toggle id={cabinId} />
-            <Menus.List id={cabinId}>
-              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
-                Duplicate
-              </Menus.Button>
-              <Modal.Open opens="edit">
-                <Menus.Button icon={<HiPencil />} >Edit</Menus.Button>
-              </Modal.Open>
-              <Modal.Open opens="delete">
-                <Menus.Button icon={<HiTrash />} >Delete</Menus.Button>
-              </Modal.Open>
-            </Menus.List>
-          </Menus.Menu>
+        <button disabled={isCreating} onClick={handleDuplicate}>
+          <HiSquare2Stack />
+        </button>
 
+        <Modal>
+          <Modal.Open opens="edit">
+            <button>
+              <HiPencil />
+            </button>
+          </Modal.Open>
           <Modal.Window name="edit">
             <CreateCabinForm cabinToEdit={cabin} />
           </Modal.Window>
+
+          <Modal.Open opens="delete">
+            <button>
+              <HiTrash />
+            </button>
+          </Modal.Open>
           <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="cabins"
@@ -112,6 +112,7 @@ function CabinRow({ cabin }) {
             />
           </Modal.Window>
         </Modal>
+
       </div>
     </Table.Row>
   );
