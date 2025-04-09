@@ -32,7 +32,6 @@ function ProtectedRoute({ children }) {
     );
 
   // 4. if there si an authenticated user, render the app
-  console.log("isAuthenticated is ", isAuthenticated);
   if (isAuthenticated) return children;
 }
 
