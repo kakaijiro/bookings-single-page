@@ -19,8 +19,8 @@ function LoginForm() {
       { email, password },
       {
         onSettled: () => {
-          setEmail("");
-          setPassword("");
+          setEmail("jiro@example.com");
+          setPassword("pass123456");
         },
       }
     );
