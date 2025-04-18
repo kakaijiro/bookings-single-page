@@ -67,68 +67,76 @@ const StyledButton = styled.button`
 
 const MenusContext = createContext();
 
-function Menus({children}) {
+function Menus({ children }) {
   const [openId, setOpenId] = useState("");
   const [position, setPosition] = useState(null);
-  const close = ()=> setOpenId("");
+  const close = () => setOpenId("");
   const open = setOpenId;
 
   return (
-    <MenusContext.Provider value={{openId, close, open, position, setPosition}}>
+    <MenusContext.Provider
+      value={{ openId, close, open, position, setPosition }}
+    >
       {children}
     </MenusContext.Provider>
-  )
+  );
 }
 
-function Toggle({id}){
-  const {openId, open, close, setPosition} = useContext(MenusContext);
+function Toggle({ id }) {
+  const { openId, open, close, setPosition } = useContext(MenusContext);
 
-  const handleClick =(e) =>{
-    const rect =e.target.closest("button").getBoundingClientRect();
+  const handleClick = (e) => {
+    e.stopPropagation(); // this prevents an event from traveling from up further in DOM
+    const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
-      x: window.innerWidth - rect.width -rect.x,
-      y: rect.y + rect.height+8,
-    })
+      x: window.innerWidth - rect.width - rect.x,
+      y: rect.y + rect.height + 8,
+    });
 
-    openId === "" || openId !==id ? open(id) : close();
+    openId === "" || openId !== id ? open(id) : close();
   };
 
-  return <StyledToggle onClick={handleClick}>
-    <HiEllipsisVertical />
-  </StyledToggle>
+  return (
+    <StyledToggle onClick={handleClick}>
+      <HiEllipsisVertical />
+    </StyledToggle>
+  );
 }
 
-function List({id, children}){
-  const {openId, position, close} = useContext(MenusContext);
-  const ref = useOutsideClick(close);
+function List({ id, children }) {
+  const { openId, position, close } = useContext(MenusContext);
+  const ref = useOutsideClick(close, false);
 
   if (openId !== id) return null;
   return createPortal(
-    <StyledList position={position} ref={ref}>{children}</StyledList>, 
+    <StyledList position={position} ref={ref}>
+      {children}
+    </StyledList>,
     document.body
-  )
-
+  );
 }
 
-function Button({children, icon, onClick}){
-  const {close} = useContext(MenusContext);
+function Button({ children, icon, onClick }) {
+  const { close } = useContext(MenusContext);
 
-  const handleClick = () =>{
+  const handleClick = () => {
     onClick?.();
     close();
   };
 
-  return <li>
-    <StyledButton onClick={handleClick}>
-      {icon}
-      <span>{children}</span>
-    </StyledButton>
-  </li>
+  return (
+    <li>
+      <StyledButton onClick={handleClick}>
+        {icon}
+        <span>{children}</span>
+      </StyledButton>
+    </li>
+  );
 }
 
-Menus.Menu=Menu;
-Menus.Toggle =Toggle;
+Menus.Menu = Menu;
+Menus.Toggle = Toggle;
 Menus.List = List;
 Menus.Button = Button;
 
-export default Menus
+export default Menus;
