@@ -9,6 +9,8 @@ This is a management service for hotel bookins, which is build with React.
 - Users
 - Settings
 
+![Screenshot of the front page](https://raw.githubusercontent.com/kakaijiro/bookings-single-page/main/front-page.png)
+
 ## Technologies
 
 - rect-query
