@@ -1,8 +1,27 @@
-# React + Vite
+This is a management service for hotel bookins, which is build with React.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Sections
 
-Currently, two official plugins are available:
+- Login / Logout
+- Homes
+- Booking
+- Cabins
+- Users
+- Settings
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies
+
+- rect-query
+- react-hook-form
+- react-router
+- recharts
+- styled-components
+- supabase
+
+## Features
+
+- Interactive pai chart & line chart
+- Authentication with supabase
+- Dark mode
+
+You can see the live site [here](https://the-wild-oasis-single-page.netlify.app/dashboard).
