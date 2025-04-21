@@ -14,7 +14,7 @@ import Spinner from "../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/useCheckout";
 import { useDeleteBooking } from "./useDeleteBooking";
-import { HiArrowUpOnSquare, HiMiniTrash } from "react-icons/hi2";
+import { HiArrowUpOnSquare } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Empty from "../../ui/Empty";
