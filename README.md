@@ -4,7 +4,7 @@ This is a management service for hotel bookins, which is build with React.
 
 - Login / Logout
 - Homes
-- Booking
+- Bookings
 - Cabins
 - Users
 - Settings
@@ -14,15 +14,15 @@ This is a management service for hotel bookins, which is build with React.
 ## Technologies
 
 - rect-query
-- react-hook-form
 - react-router
+- react-hook-form
 - recharts
 - styled-components
 - supabase
 
 ## Features
 
-- Interactive pai chart & line chart
+- Interactive pie chart & line chart
 - Authentication with supabase
 - Dark mode
 
